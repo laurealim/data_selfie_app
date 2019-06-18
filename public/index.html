@@ -9,8 +9,47 @@
 </head>
 
 <body>
+    <script>
+        const getLatLonData = () => {
+            if ('geolocation' in navigator) {
+                console.log('geolocation is available...');
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const time = position.timestamp;
+
+                    document.getElementById('lat').textContent = lat;
+                    document.getElementById('lon').textContent = lon;
+                    console.log(position);
+
+                    const data = { lat, lon, time };
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: JSON.stringify(data),
+                    }
+                    const response = await fetch('/api', options);
+                    const json_data = await response.json();
+                    console.log(json_data);
+                });
+            } else {
+                console.log('geolocation is not available...')
+            }
+        }
+
+    </script>
     <h1>Data Selfie App</h1>
     <p>Hello! This is laureal</p>
+
+    <p>latitude: <span id="lat"></span>&deg;</p>
+    <p>longitude: <span id="lon"></span>&deg;</p>
+    <button id="lat_lon" onclick="getLatLonData()">Get Data</button>
+
+    <script type="tex/javascript">
+    </script>
 </body>
 
 </html>
