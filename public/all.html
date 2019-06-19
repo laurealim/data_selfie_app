@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Data Selfie App.</h1>
+    <script>
+        const getData = async () => {
+            const response = await fetch('/api');
+            const data = await response.json();
+
+            for (item of data) {
+                const root = document.createElement('div');
+                const name = document.createElement('div');
+                const geo = document.createElement('div');
+                const serverTime = document.createElement('div');
+                const time = document.createElement('div');
+                const para = document.createElement('p');
+                const hr = document.createElement('hr');
+
+                name.textContent = `Name : ${item.name}`;
+                geo.textContent = `Lat: ${item.lat} , Lon: ${item.lon}`;
+                const serverTimeString = new Date(item.serverTime).toLocaleString();
+                const timeString = new Date(item.time).toLocaleString();
+
+                serverTime.textContent = 'Server Time: ' + serverTimeString + ` (${item.serverTime})`;
+                time.textContent = 'Client Time: ' + timeString + ` (${item.time})`;
+
+                root.append(name, geo, serverTime, time);
+                document.body.append(root, para, hr);
+            }
+            console.log(data);
+        }
+        getData();
+    </script>
 </body>
+
 </html>

@@ -24,3 +24,14 @@ app.post("/api", (req, res) => {
   database.insert(data);
   res.json(data);
 });
+
+app.get("/api", (req, res) => {
+  database.find({}, (err, data) => {
+    if (err) {
+      res.end();
+      console.log(err);
+      // return;
+    }
+    res.json(data);
+  });
+});
