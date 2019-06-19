@@ -17,12 +17,14 @@
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
                     const time = position.timestamp;
+                    const name = document.getElementById('name').value;
+                    console.log(name);
 
                     document.getElementById('lat').textContent = lat;
                     document.getElementById('lon').textContent = lon;
                     console.log(position);
 
-                    const data = { lat, lon, time };
+                    const data = { lat, lon, time, name };
                     const options = {
                         method: 'POST',
                         headers: {
@@ -46,6 +48,7 @@
 
     <p>latitude: <span id="lat"></span>&deg;</p>
     <p>longitude: <span id="lon"></span>&deg;</p>
+    <p><input type="text" id="name" /></p>
     <button id="lat_lon" onclick="getLatLonData()">Get Data</button>
 
     <script type="tex/javascript">
